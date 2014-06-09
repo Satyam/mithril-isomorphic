@@ -4,18 +4,9 @@ var express =       require('express')
 
 var app = module.exports = express();
 
-app.use(require('cookie-parser')());
-app.use(require('body-parser')());
+// This is it:
+app.use(require('mithril-isomorphic')());
 
-// all configuration settings are set to their default values
-// just for the purpose of documenting them.
-app.use(require('mithril-isomorphic')({
-	app: './app', 
-	routes: 'routes.js', 
-	page: 'index.html', 
-	root: 'client',
-	script: '__.js'
-}));
 app.use(express.static(path.join(__dirname, 'client')));
 
 

@@ -1,7 +1,7 @@
 /* jshint node:true */
-module.exports = function (m) {
+module.exports = function (m, IsoModules) {
 
-	app = {
+	var app = {
 		//models
 
 		// I keep a static copy of the list in the app
@@ -138,7 +138,6 @@ module.exports = function (m) {
 			options[tabKey](ctrl)
 		];
 	};
-
 	
-	return app;
+	IsoModules.app = app;
 };

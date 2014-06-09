@@ -28,17 +28,12 @@ while the bottom copy will remain the same.
 
 If you click then on the bottom copy, the contents of both will change after a trip to the server.
 
-`server.js` contains several configuration parameters which are set to their defaults anyway.
-
-* `app: './app'` points to the location of the files that constitute the application.
-* `routes: 'routes.js'` points to the file, within the application folder, for the routes or the module declaration.
-* `page: 'index.html'` points to the single page frame
-* `root: 'client'` the folder which will become the root for the web site.
-* `script: '__.js'` the file that will contain the concatenation of all the JS files in the application, including Mithril.
-
+`server.js` launches an express server which uses middleware to run the Mithril application in the server.
 For the default configuration, you just need to add this to the express server script:
 
 	app.use(require('mithril-isomorphic')());
+	
+When loading the middleware, an object with several configuration options can be given.	
 
 The `routes.js` files is slightly modified from the standard arguments to `m.route()`:
 
@@ -55,19 +50,18 @@ The `routes.js` files is slightly modified from the standard arguments to `m.rou
 
 The application can be made of any number of individual files.
 
-	module.exports = function (m) {
-
-		app = {
+	module.exports = function (m, IsoModules) {
+		var app = {
 			// The regular application goes here
 		};
-		return app;
+		IsoModules.app = app;
 	};
 
-The module is defined as normal within the exported function which will be called with the instance of Mithril.
-The file containing the module should be named as the module itself with the `.js` extension appended.
-The name of the module is the one used in the `routes` file above.
-If the same module is split into several files, the file containing the controller should have the file
-named after it and is the only one that needs to return the module instance.
+The module is defined as normal within the exported function which will be called with the instance of Mithril
+and an object which will be used to collect all the modules in the application.
+A single module can be split into several files or several of them placed in the same file, as long as a
+reference to each module, with its `controller` and `view` properties are in the `IsoModules` collection of modules.
+The name of the module within the collection is the one used in the `routes` file above.
 
 The home page `index.html`by default should contain a placeholder `{{body}}` somewhere within the body.
 It will be replaced by the static version of the page plus the  scripts to make it active, including Mithril itself.
