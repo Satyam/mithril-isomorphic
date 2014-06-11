@@ -26,7 +26,7 @@ the bottom is generated at the server side.
 If you click on the tabs on the top copy, the contents of those tabs will change without going to the server
 while the bottom copy will remain the same.
 
-If you click then on the bottom copy, the contents of both will change after a trip to the server.
+If you click them on the bottom copy, the contents of both will change after a trip to the server.
 
 `server.js` launches an express server which uses middleware to run the Mithril application in the server.
 For the default configuration, you just need to add this to the express server script:
@@ -34,8 +34,10 @@ For the default configuration, you just need to add this to the express server s
 	app.use(require('mithril-isomorphic')());
 	
 When loading the middleware, an object with several configuration options can be given.	
+You can see the configuration options documented [here](https://github.com/Satyam/mithril-isomorphic/blob/master/node_modules/mithril-isomorphic/isomithril.js#L102)
 
-The `routes.js` files is slightly modified from the standard arguments to `m.route()`:
+The [`routes.js` file](https://github.com/Satyam/mithril-isomorphic/blob/master/app/routes.js)
+is slightly modified from the standard arguments to `m.route()`:
 
 	module.exports = function (m) {
 		m.route('/', {
@@ -45,10 +47,11 @@ The `routes.js` files is slightly modified from the standard arguments to `m.rou
 	};
 
 * It should be exported as any node module.  
-* The route configuration is missing the first argument, the document root, as there is as yet no document.
+* The route configuration is missing the first argument, the document root, as there is no document yet.
 * The module name is given as a string (`'app'` instead of `app`) as there is no instance of it yet.
 
-The application can be made of any number of individual files.
+The application can be made of any number of individual files. 
+A [module](https://github.com/Satyam/mithril-isomorphic/blob/master/app/app.js) would look like this:
 
 	module.exports = function (m, IsoModules) {
 		var app = {
@@ -63,7 +66,8 @@ A single module can be split into several files or several of them placed in the
 reference to each module, with its `controller` and `view` properties are in the `IsoModules` collection of modules.
 The name of the module within the collection is the one used in the `routes` file above.
 
-The home page `index.html`by default should contain a placeholder `{{body}}` somewhere within the body.
+The [home page](https://github.com/Satyam/mithril-isomorphic/blob/master/client/index.html)
+`index.html` by default, should contain a placeholder `{{body}}` somewhere within the body.
 It will be replaced by the static version of the page plus the  scripts to make it active, including Mithril itself.
 
 So far, the Mithril files themselves have not been changed but I am afraid I will have to, eventually, by making
