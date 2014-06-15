@@ -22,10 +22,9 @@ build/Release
 # Dependency directory
 # Deployed apps should consider commenting this line out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
-body-parser
-cookie-parser
 express
 mithril
-url
+q
+q-io
 node_modules/mithril-isomorphic/node_modules/*
 __.js
