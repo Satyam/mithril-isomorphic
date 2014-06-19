@@ -57,6 +57,8 @@ module.exports = function (m, IsoModules) {
 			return m(
 				"ul.itemlist",
 				app.list().map(function (item) {
+					// I read the properties in both lower and uppercase due to a peculiarity of the demo.
+					// For this application on its own, the lowercase properties should suffice.
 					return m("li", (item.quote || item.QUOTE) + ' - ' + (item.author || item.AUTHOR));
 				})
 			);
