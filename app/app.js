@@ -57,7 +57,7 @@ module.exports = function (m, IsoModules) {
 			return m(
 				"ul.itemlist",
 				app.list().map(function (item) {
-					return m("li", item.quote + ' - ' + item.author);
+					return m("li", (item.quote || item.QUOTE) + ' - ' + (item.author || item.AUTHOR));
 				})
 			);
 		},
