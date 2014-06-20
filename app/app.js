@@ -20,6 +20,8 @@ module.exports = function (m, IsoModules) {
 				});
 			}
 
+			this.title = m.prop("hello");
+
 			// app properties
 			this.color = m.prop('');
 			this.bigFonts = m.prop(false);
@@ -49,7 +51,8 @@ module.exports = function (m, IsoModules) {
 				tabs(ctrl, {
 					list: app.listView,
 					settings: app.settingsView,
-					about: app.aboutView
+					about: app.aboutView,
+					leoTest: app.leoView
 				})
 			);
 		},
@@ -86,8 +89,7 @@ module.exports = function (m, IsoModules) {
 		},
 		aboutView: function () {
 			return m(
-				".about", 
-				[
+				".about", [
 					"This is a sample demo",
 					m("hr"),
 					m(
@@ -103,6 +105,18 @@ module.exports = function (m, IsoModules) {
 					),
 					m('p', 'If you go to the [list] tab, you will see the changes at once.')
 				]
+			);
+		},
+		leoView: function (ctrl) {
+			return m(
+				".leo", [
+					m("h1", ctrl.title()),
+					m("input", {
+						oninput: m.withAttr("value", ctrl.title),
+						value: ctrl.title()
+					})
+				]
+
 			);
 		}
 	};
@@ -123,11 +137,11 @@ module.exports = function (m, IsoModules) {
 		var tab = function (name) {
 			return m("li", [
 			m("a", {
-				class: tabKey == name ? "selected" : "",
-				href: '/' + name,
-				// let Mithril take care of the routing
-				config: m.route
-			}, name)
+					class: tabKey == name ? "selected" : "",
+					href: '/' + name,
+					// let Mithril take care of the routing
+					config: m.route
+				}, name)
 		]);
 		};
 
@@ -138,8 +152,8 @@ module.exports = function (m, IsoModules) {
 			]),
 			// body:
 			options[tabKey](ctrl)
-		];
+			];
 	};
-	
+
 	IsoModules.app = app;
 };
