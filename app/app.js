@@ -36,6 +36,18 @@ module.exports = function (m, IsoModules) {
 				this.color("rgb(0, " + (Math.random() * 125 | 0) + ", 0)");
 			}.bind(this);
 
+			this.tabs = new IsoModules.mc.Tabs.controller({
+				list: {
+					view: app.listView,
+					ctrl: this,
+					label: 'List'
+				},
+				settings: {
+					label: 'Settings',
+					view: app.settingsView
+				},
+				about: app.aboutView
+			});
 		},
 
 
@@ -48,12 +60,11 @@ module.exports = function (m, IsoModules) {
 						backgroundColor: ctrl.color()
 					}
 				},
-				tabs(ctrl, {
-					list: app.listView,
-					settings: app.settingsView,
-					about: app.aboutView,
-					leoTest: app.leoView
+				IsoModules.mc.Tabs.view(ctrl.tabs, {
+					_parent: '.tabs',
+					_activeAnchor: '.selected'
 				})
+
 			);
 		},
 		listView: function (ctrl) {
